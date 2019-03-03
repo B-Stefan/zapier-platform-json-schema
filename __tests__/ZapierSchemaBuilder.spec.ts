@@ -9,7 +9,7 @@ const schema = require("./Example.schema.json") as Definition;
 jest.mock("../src/ZapierSchemaGenerator");
 
 describe("ZapierSchemaBuilder", () => {
-  let getZapierSchemaMock = jest.fn();
+  const getZapierSchemaMock = jest.fn();
   mocked(ZapierSchemaGenerator).mockImplementation(() => ({
     getZapierSchema: getZapierSchemaMock
   }));
