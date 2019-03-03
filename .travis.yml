@@ -1,27 +1,27 @@
 language: nodejs
-
 before_script:
 - yarn
 - yarn build
-
 script:
 - yarn lint
 - yarn test
-
 after_success:
 - yarn pack
-
 deploy:
 - provider: releases
-  api_key: $GITHUB_TOKEN
+  api_key: "$GITHUB_TOKEN"
   file_glob: true
-  file: "zapier-platform-json-schema-*.tgz"
+  file: zapier-platform-json-schema-*.tgz
   skip_cleanup: true
   on:
     tags: true
 - provider: npm
   skip_cleanup: true
-  email: "username@users.noreply.github.com"
-  api_key: $NPM_TOKEN
+  email: username@users.noreply.github.com
+  api_key: "$NPM_TOKEN"
   on:
     tags: true
+env:
+  global:
+  - secure: kyxiZhnBfNDh+lVVKNg+5mWvf+h+KcC8nE3Clr5Dq4emg/jRYjse9eyfaFF6KHL5hDLf2emHezeRHBwGSheCT+rCjmchKCweQxoq4WZz/TZJ+uYvbDyzo7VP6HXLjqxT1UoFImvmFiMOJRZxjJfNZdJfJtfQiVSyQ8ar9rY9QEHKet4qP51xx3+nCFFd4vOLKFddAvEE+7wzJkIaZ11pckpSdt3Ficdup9r0G0jKZ7oDh4ebYoiLCqD9v+qB78S4T3h9HfotqW8MH77k8rd9+wc2Lta1+Ehj/umvuNaRkTNepcqJypKVXu43QdJ+Npa1//cXq8Gzc7ljuXnFmGzLioSEja8PsTYVnfboiyL+nowcdsNqZMzCUCQxmzOVs8BzFCpUFcH2Kp4afQxCpwhZckqDm9sBBz+f0ONhevik8SgP7pvBCXpmgQI+qfTI+u+w7cSxQhI33EQsW2fMnIOHdnFRp+4isNIyDldckZPxTx19nrbqzHskLRGDNKT4gLtOhAfb693L+ku4lGEgYQEFE5VSsgoeOkWZDgeJaH7xby4RAC/FbHuI0/RPVq7tFuTUUI5IVtyiB6BGR94ZuHKLfOJAsz3OMxlBWcGN5LiTwuIDFistCYpF7SlfypYy8cAVuUWxKRr3I5bXSNRgaMPW1x4h0LV6l5px1Enj/66gZec=
+  - secure: ZW/At4onQhQrOHSNUCbRb7M6kmpDaKaTRy2tIidTpgeT+11ww6oSF/Huo+XzZpwwgU+3gPHozdhQxYLu1yQCouQ++09ayfEvIgg4tFrf9HTHofSE/8roiIy5XcT2dAPfy3uHu4eytkRaxEfUTRmjOD17FaPj15+SAexheQgNFTP2o1DRUWWp0FxO1t3KiOqqfxxnY7lIDKy2P8jcAfJlTtO2wGvYfKIKLX0ZXon4nuuwbYicDorpv/b8efsoVTlFffktXLA6WxgPjZHNCq4G/SitsDNhRBmnnairmuDeZ1f7F6jUy2frqzAfWO44Q2OtNveLJa01MG9juGJYZai5qjX0uAPuaml9zZcBtau+PlrCOLP8FATvMRv1KWXIAFdO6jk8GQpXB2kIdWZaXLF9cvg/Q6wz6LvsWsm4x4KvSUdXvu3P/i71oQ9SYO32TPNR1XAnckVst8koyUCdTqtyu93NHI+5FPkYFxkAVz6yeNr+5RNCFkX+DlYgFkIEYTX+kBN6kbnlLPK1r2nv3amkDP2NMXcwG99x2H0sZmVAU1PI7NmUUBCCDncT39Hd9X4mW4Ad6VxuZgfFkjslGwuHCoHFV4tOLewbpnButXf8mKZSlUZhaijOfaWSsJDm+z4Em8aQszmS+OFQrWV9D//jY6Dyc2GDG8iUYO/BvqefWtk=
