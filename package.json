@@ -3,6 +3,8 @@
   "version": "0.0.3",
   "description": "Lib to convert JSON-Schema to zapier schema",
   "main": "build/Index.js",
+  "repository": "B-Stefan/zapier-platform-json-schema",
+  "author": "Stefan Bieliauskas <open@conts.de>",
   "license": "MIT",
   "private": false,
   "scripts": {
