@@ -7,7 +7,7 @@ This project converts json Schema to the ZapierPlatform schema
 
 * `npm install zapier-platform-json-schema --save`
 
-* `yarn add install zapier-platform-json-schema`
+* `yarn add zapier-platform-json-schema`
 
 ```javascript
 
