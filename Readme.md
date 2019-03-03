@@ -5,11 +5,14 @@ This project converts json Schema to the ZapierPlatform schema
 
 ## Getting started
 
-`npm install zapier-platform-json-schema --save`
+* `npm install zapier-platform-json-schema --save`
 
-`yarn add install zapier-platform-json-schema`
+* `yarn add install zapier-platform-json-schema`
 
-```
+```javascript
+
+const {default: ZapierSchemaBuilder} = require ("zapier-platform-json-schema");
+
 const schema = {
     "type": "object",
     "properties": {
@@ -25,6 +28,8 @@ const schema = {
 console.log(new ZapierSchemaBuilder(schema)
   .addExclude("excludedProp")
   .build());
+
+// prints: [ { key: 'stringProp', type: 'string' } ]
 
 ```
 
