@@ -1,10 +1,10 @@
-import { Definition } from "typescript-json-schema";
 import ZapierSchemaGenerator from "../src/ZapierSchemaGenerator";
 import ZapierSchemaBuilder from "../src/ZapierSchemaBuilder";
 import { mocked } from "ts-jest/utils";
+import { JSONSchema } from "../src/types/JSONSchema";
 
 // tslint:disable-next-line
-const schema = require("./Example.schema.json") as Definition;
+const schema = require("./Example.schema.json") as JSONSchema;
 
 jest.mock("../src/ZapierSchemaGenerator");
 

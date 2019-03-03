@@ -1,8 +1,8 @@
-import { Definition } from "typescript-json-schema";
 import ZapierSchemaGenerator from "../src/ZapierSchemaGenerator";
+import { JSONSchema } from "../src/types/JSONSchema";
 
 // tslint:disable-next-line
-const schema = require("./Example.schema.json") as Definition;
+const schema = require("./Example.schema.json") as JSONSchema;
 
 describe("ZapierSchemaGenerator", () => {
   const generator = new ZapierSchemaGenerator();
