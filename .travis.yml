@@ -1,0 +1,27 @@
+language: nodejs
+
+before_script:
+- yarn
+- yarn build
+
+script:
+- yarn lint
+- yarn test
+
+after_success:
+- yarn pack
+
+deploy:
+- provider: releases
+  api_key: $GITHUB_TOKEN
+  file_glob: true
+  file: "zapier-platform-json-schema-*.tgz"
+  skip_cleanup: true
+  on:
+    tags: true
+- provider: npm
+  skip_cleanup: true
+  email: "username@users.noreply.github.com"
+  api_key: $NPM_TOKEN
+  on:
+    tags: true
