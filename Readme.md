@@ -45,7 +45,7 @@ The following list summarize the current scope and supported features of this li
 | array         | ❌ |   |
 | $ref to object| ✅ |    [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L64) |
 | $ref to enum  | ✅ |    [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L64) |
-| get nested defeintion  |  ❌  |  [#7](./../../issues/8) |
+| get nested defeintion  |  ❌  |  [#8](./../../issues/8) |
 | Additional props  |   ❌   |  see [#7](./../../issues/7)  |
 | required      | ❌ | see [#7](./../../issues/7) |
 | label         | ❌ | see [#7](./../../issues/7) |
