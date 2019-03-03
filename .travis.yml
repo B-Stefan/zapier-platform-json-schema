@@ -4,6 +4,7 @@ before_script:
 script:
 - yarn lint
 - yarn test
+- yarn test-example
 after_success:
 - yarn pack
 deploy:
