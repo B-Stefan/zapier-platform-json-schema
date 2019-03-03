@@ -1,0 +1,45 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {
+    "no-console": false,
+    "object-literal-sort-keys": [false, "match-declaration-order"]
+  },
+  "rules": {
+    "no-floating-promises": true,
+    "quotemark": false,
+    "no-unused-expression": false,
+    "forin": false,
+    "interface-name": [false, "never-prefix"],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
+    "object-literal-sort-keys": [false, "match-declaration-order"],
+    "max-classes-per-file": false,
+    "no-console": true,
+    "ordered-imports": [
+      false,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
+    "max-line-length": [
+      true,
+      {
+        "limit": 120,
+        "ignore-pattern": "^import [^,]+ from |^export | implements "
+      }
+    ],
+    "semicolon": [true, "always", "strict-bound-class-methods"],
+    "trailing-comma": false,
+    "arrow-parens": false,
+    "no-implicit-dependencies": [true, "dev"],
+    "whitespace": false,
+    "object-literal-key-quotes": [true, "as-needed"]
+  },
+  "rulesDirectory": []
+}
