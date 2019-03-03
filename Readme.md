@@ -33,6 +33,34 @@ console.log(new ZapierSchemaBuilder(schema)
 
 ```
 
+## Features
+The following list summarize the current scope and supported features of this lib.
+
+| Feature       | Status        | Comment|
+| ------------- |:-------------:| -----:|
+| strings       | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
+| boolean       | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
+| datetime      | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
+| enum          | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
+| array         | ❌ |   |
+| $ref to object| ✅ |    [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L64) |
+| $ref to enum  | ✅ |    [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L64) |
+| get nested defeintion  |  ❌  |  #8 |
+| Additional props  |   ❌   |  see #7  |
+| required      | ❌ | see #7 |
+| label         | ❌ | see #7 |
+| ...           | ❌ | see #7 |
+
+### Working
+
+* Converts JSON-Schema to Zapier-Schema
+* $Ref support for nested Objects and Enums
+
+## Roadmap
+* Support for Arrays
+* Enhance support for nested Types e.g. get only a nested type
+* Add additional properties (e.g.: require, label, ...)
+
 ## Test
 To run the test just use the yarn script:
 `yarn test`
