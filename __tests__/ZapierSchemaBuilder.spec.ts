@@ -19,24 +19,6 @@ describe("ZapierSchemaBuilder", () => {
     getZapierSchemaMock.mockReset();
   });
 
-  describe("getZapierReference", () => {
-    it("converts dot notation into zapier notation", () => {
-      expect(ZapierSchemaBuilder.getZapierReference("nested.nested")).toEqual(
-        "nested__nested"
-      );
-    });
-    it("converts multiple dot notation into zapier notation", () => {
-      expect(
-        ZapierSchemaBuilder.getZapierReference("nested.nested.nested")
-      ).toEqual("nested__nested__nested");
-    });
-    it("dont alter strings with no dots", () => {
-      expect(ZapierSchemaBuilder.getZapierReference("noDotStrinng")).toEqual(
-        "noDotStrinng"
-      );
-    });
-  });
-
   it("builds with exclude option", async () => {
     builder.addExclude("exclude").build();
 

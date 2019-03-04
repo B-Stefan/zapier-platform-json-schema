@@ -51,15 +51,6 @@ The following list summarize the current scope and supported features of this li
 | label         | ❌ | see [#7](./../../issues/7) |
 | ...           | ❌ | see [#7](./../../issues/7) |
 
-### Working
-
-* Converts JSON-Schema to Zapier-Schema
-* $Ref support for nested Objects and Enums
-
-## Roadmap
-* Support for Arrays
-* Enhance support for nested Types e.g. get only a nested type
-* Add additional properties (e.g.: require, label, ...)
 
 ## Test
 To run the test just use the yarn script:

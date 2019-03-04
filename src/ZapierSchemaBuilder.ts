@@ -4,12 +4,9 @@ import { JSONSchema } from "./types/JSONSchema";
 
 import { FieldSchema } from "./types/FieldSchema";
 import Registry from "./Registry";
+import Utils from "./Utils";
 
 export default class ZapierSchemaBuilder {
-  public static getZapierReference(key: string): string {
-    return key.replace(/\./g, "__");
-  }
-
   private includes: string[] = [];
 
   private excludes: string[] = [];
@@ -21,11 +18,11 @@ export default class ZapierSchemaBuilder {
   constructor(private schema: JSONSchema) {}
 
   public addInclude(key: string) {
-    this.includes.push(ZapierSchemaBuilder.getZapierReference(key));
+    this.includes.push(Utils.getZapierReference(key));
     return this;
   }
   public addExclude(key: string) {
-    this.excludes.push(ZapierSchemaBuilder.getZapierReference(key));
+    this.excludes.push(Utils.getZapierReference(key));
     return this;
   }
 
