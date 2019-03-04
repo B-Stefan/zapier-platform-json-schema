@@ -1,5 +1,6 @@
 import ZapierSchemaGenerator from "../src/ZapierSchemaGenerator";
 import { JSONSchema } from "../src/types/JSONSchema";
+import Registry from "../src/Registry";
 
 // tslint:disable-next-line
 const schema = require("./Example.schema.json") as JSONSchema;
@@ -65,7 +66,7 @@ describe("ZapierSchemaGenerator", () => {
     it("supports $ref enum types", async () => {
       const key = "enumRef";
       const type = generator.getNestedRefTypes(
-        schema,
+        Registry.fromDefinition(schema),
         schema.properties![key],
         key
       );
@@ -79,7 +80,7 @@ describe("ZapierSchemaGenerator", () => {
     it("supports $ref object types", async () => {
       const key = "nestedRef";
       const types = generator.getNestedRefTypes(
-        schema,
+        Registry.fromDefinition(schema),
         schema.properties![key],
         key
       );
@@ -121,7 +122,7 @@ describe("ZapierSchemaGenerator", () => {
   it("uses Zapier unsercore keys", async () => {
     const key = "nestedRef";
     const types = generator.getNestedRefTypes(
-      schema,
+      Registry.fromDefinition(schema),
       schema.properties![key],
       key
     );
