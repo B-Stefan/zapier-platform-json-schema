@@ -1,13 +1,8 @@
-import ZapierSchemaGenerator from "../src/ZapierSchemaGenerator";
-import ZapierSchemaBuilder from "../src/ZapierSchemaBuilder";
-import { mocked } from "ts-jest/utils";
 import { JSONSchema } from "../src/types/JSONSchema";
 import Registry from "../src/Registry";
 
 // tslint:disable-next-line
 const schema = require("./Example.schema.json") as JSONSchema;
-
-jest.mock("../src/ZapierSchemaGenerator");
 
 describe("Registry", () => {
   let reg: Registry;
