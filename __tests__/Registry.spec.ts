@@ -15,7 +15,7 @@ describe("Registry", () => {
     reg = new Registry();
   });
 
-  describe("getFromDefintion", () => {
+  describe("getFromDefinition", () => {
     it("adds the defintion as root", () => {
       const regStatic = Registry.fromDefinition(schema);
       expect(regStatic.getDefinition("root")).toEqual(schema);
