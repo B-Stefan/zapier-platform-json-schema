@@ -1,11 +1,13 @@
 import { JSONSchema } from "./types/JSONSchema";
 import { FieldSchema } from "./types/FieldSchema";
+import Registry from "./Registry";
 
 interface ZapierSchemaGeneratorOptions {
   nestedName: string | null;
   excludeAll: boolean;
   excludes: string[];
   includes: string[];
+  registry?: Registry;
 }
 
 export default class ZapierSchemaGenerator {
@@ -13,23 +15,11 @@ export default class ZapierSchemaGenerator {
     def: JSONSchema,
     options?: Partial<ZapierSchemaGeneratorOptions>
   ): FieldSchema[] {
-    let props;
-    if (options && options.nestedName) {
-      if (!def.definitions) {
-        throw new Error(`No nested definitions in dev ${JSON.stringify(def)}`);
-      }
-      const nestedDef = def.definitions[options.nestedName];
-      if (!nestedDef) {
-        throw new Error(
-          `Can't find def with the name: ${
-            options.nestedName
-          } - ${JSON.stringify(def)}`
-        );
-      }
-      props = this.convertJsonSchema(def, nestedDef);
-    } else {
-      props = this.convertJsonSchema(def, def);
-    }
+    const reg =
+      options && options.registry
+        ? options.registry
+        : Registry.fromDefinition(def);
+    const props = this.convertJsonSchema(reg, def);
     const flatten = [].concat.apply([], props);
 
     const flatProps = flatten.filter(entry => entry !== null);
@@ -46,10 +36,10 @@ export default class ZapierSchemaGenerator {
     }
     return flatProps;
   }
-  public getNestedRefTypes(root: JSONSchema, prop: any, key: string) {
+  public getNestedRefTypes(registry: Registry, prop: any, key: string) {
     const name = prop.$ref.split("/").pop();
-    const def = root.definitions![name];
-    const props = this.convertJsonSchema(root, def);
+    const def = registry.getDefinition(name);
+    const props = this.convertJsonSchema(registry, def);
     if (!props.map) {
       const entry = prop;
       return this.getPrimitiveType(key, def);
@@ -107,13 +97,13 @@ export default class ZapierSchemaGenerator {
       return true;
     });
   }
-  private convertJsonSchema(root: JSONSchema, current: JSONSchema): any {
+  private convertJsonSchema(registry: Registry, current: JSONSchema): any {
     if (!current.properties) {
       return this.getPrimitiveType(null, current);
     }
     return Object.entries(current.properties!).map(([key, prop]) => {
       if (prop.$ref) {
-        return this.getNestedRefTypes(root, prop, key);
+        return this.getNestedRefTypes(registry, prop, key);
       }
       return this.getPrimitiveType(key, prop);
     });

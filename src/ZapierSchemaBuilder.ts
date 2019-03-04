@@ -3,6 +3,7 @@ import ZapierSchemaGenerator from "./ZapierSchemaGenerator";
 import { JSONSchema } from "./types/JSONSchema";
 
 import { FieldSchema } from "./types/FieldSchema";
+import Registry from "./Registry";
 import Utils from "./Utils";
 
 export default class ZapierSchemaBuilder {
@@ -11,6 +12,8 @@ export default class ZapierSchemaBuilder {
   private excludes: string[] = [];
 
   private excludeAll: boolean = false;
+
+  private registry: Registry | undefined;
 
   constructor(private schema: JSONSchema) {}
 
@@ -28,11 +31,17 @@ export default class ZapierSchemaBuilder {
     return this;
   }
 
+  public setRegistry(value: Registry) {
+    this.registry = value;
+    return this;
+  }
+
   public build(): FieldSchema[] {
     return new ZapierSchemaGenerator().getZapierSchema(this.schema, {
       excludeAll: this.excludeAll,
       excludes: this.excludes,
-      includes: this.includes
+      includes: this.includes,
+      registry: this.registry
     });
   }
 }
