@@ -1,12 +1,13 @@
 import { JSONSchema } from "./types/JSONSchema";
 import { FieldSchema } from "./types/FieldSchema";
 import Registry from "./Registry";
+import Utils from "./Utils";
 
 interface ZapierSchemaGeneratorOptions {
-  nestedName: string | null;
   excludeAll: boolean;
   excludes: string[];
   includes: string[];
+  overrides: Map<string, any>;
   registry?: Registry;
 }
 
@@ -15,64 +16,64 @@ export default class ZapierSchemaGenerator {
     def: JSONSchema,
     options?: Partial<ZapierSchemaGeneratorOptions>
   ): FieldSchema[] {
-    const reg =
-      options && options.registry
-        ? options.registry
-        : Registry.fromDefinition(def);
-    const props = this.convertJsonSchema(reg, def);
-    const flatten = [].concat.apply([], props);
+    const safeOptions = {
+      includes: [],
+      excludes: [],
+      excludeAll: false,
+      overrides: new Map(),
+      ...options
+    } as ZapierSchemaGeneratorOptions;
 
-    const flatProps = flatten.filter(entry => entry !== null);
-
-    if (options) {
-      const currentOptions = {
-        nestedName: null,
-        includes: [],
-        excludes: [],
-        excludeAll: false,
-        ...options
-      };
-      return this.filterByOptions(flatProps, currentOptions);
+    if (!safeOptions.registry) {
+      safeOptions.registry = Registry.fromDefinition(def);
     }
-    return flatProps;
+
+    const props = this.convertJsonSchema(safeOptions.registry, def);
+    const flatten = Utils.flatten<FieldSchema>(props).filter(
+      entry => entry !== null
+    );
+
+    const filtered = this.filterByOptions(flatten, safeOptions);
+    return this.injectOverrides(filtered, safeOptions);
   }
   public getNestedRefTypes(registry: Registry, prop: any, key: string) {
     const name = prop.$ref.split("/").pop();
     const def = registry.getDefinition(name);
     const props = this.convertJsonSchema(registry, def);
-    if (!props.map) {
-      const entry = prop;
-      return this.getPrimitiveType(key, def);
+    if (props instanceof Array) {
+      return props
+        .filter((nested: any) => nested !== null)
+        .map((nested: any) => {
+          return {
+            ...nested,
+            key: Utils.getZapierReference(key + "." + nested.key)
+          };
+        });
     }
-    return props
-      .filter((nested: any) => nested !== null)
-      .map((nested: any) => {
-        return { ...nested, key: key + "__" + nested.key };
-      });
+    return [{ key, ...this.getPrimitiveType(def) }];
   }
   // FIXME: Change to private only for testing public
-  public getPrimitiveType(key: string | null, prop: any): FieldSchema | null {
-    const additional = {} as Partial<FieldSchema>;
+  public getPrimitiveType(prop: any): Partial<FieldSchema> | null {
+    const fieldSchema = {} as Partial<FieldSchema>;
     if (prop.enum) {
-      additional.choices = prop.enum;
+      fieldSchema.choices = prop.enum;
     }
     if (prop.format === "date-time") {
-      additional.type = "datetime";
+      fieldSchema.type = "datetime";
     } else if (prop.type === "array") {
       return null;
     } else if (prop.type === "object") {
       return null;
-    } else if (prop.type && prop.type.filter instanceof Function) {
-      additional.type = prop.type
+    } else if (prop.type && prop.type instanceof Array) {
+      fieldSchema.type = prop.type
         .filter((entry: any) => entry !== "string")
         .pop();
+    } else if (!prop.type) {
+      return null;
     } else {
-      additional.type = prop.type;
+      fieldSchema.type = prop.type;
     }
-    return {
-      key,
-      ...additional
-    } as FieldSchema;
+    return fieldSchema;
   }
 
   private filterByOptions(
@@ -80,8 +81,6 @@ export default class ZapierSchemaGenerator {
     options: ZapierSchemaGeneratorOptions
   ) {
     return props.filter((prop: FieldSchema) => {
-      //  console.log("options", options.excludes, prop.key)
-
       if (options.includes.find(include => prop.key.indexOf(include) > -1)) {
         return true;
       }
@@ -97,15 +96,38 @@ export default class ZapierSchemaGenerator {
       return true;
     });
   }
+
+  private injectOverrides(
+    props: FieldSchema[],
+    options: ZapierSchemaGeneratorOptions
+  ): FieldSchema[] {
+    const dict = props.reduce<{ [x: string]: FieldSchema }>((acc, current) => {
+      acc[current.key] = current;
+      return acc;
+    }, {});
+
+    Array.from(options.overrides.entries()).map(([key, value]) => {
+      const found = dict[key];
+      if (!found) {
+        return;
+      }
+      dict[key] = { ...found, ...value };
+    });
+    return Object.values(dict);
+  }
+
   private convertJsonSchema(registry: Registry, current: JSONSchema): any {
     if (!current.properties) {
-      return this.getPrimitiveType(null, current);
+      return this.getPrimitiveType(current);
     }
     return Object.entries(current.properties!).map(([key, prop]) => {
       if (prop.$ref) {
         return this.getNestedRefTypes(registry, prop, key);
       }
-      return this.getPrimitiveType(key, prop);
+      if (!this.getPrimitiveType(prop)) {
+        return null;
+      }
+      return { key, ...this.getPrimitiveType(prop) };
     });
   }
 }
