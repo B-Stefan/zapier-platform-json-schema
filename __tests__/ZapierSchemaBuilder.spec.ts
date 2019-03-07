@@ -3,6 +3,7 @@ import ZapierSchemaBuilder from "../src/ZapierSchemaBuilder";
 import { mocked } from "ts-jest/utils";
 import { JSONSchema } from "../src/types/JSONSchema";
 import Registry from "../src/Registry";
+import { FieldSchemaKey } from "../src/types/FieldSchema";
 
 // tslint:disable-next-line
 const schema = require("./Example.schema.json") as JSONSchema;
@@ -28,6 +29,18 @@ describe("ZapierSchemaBuilder", () => {
       expect.any(Object),
       expect.objectContaining({
         registry: registryMock
+      })
+    );
+  });
+  it("builds with override option", async () => {
+    const registryMock = {} as Registry;
+    const overrideObj = { [FieldSchemaKey.HelpText]: "helpTextOverride" };
+    builder.addOverride("dateProp", overrideObj).build();
+
+    expect(getZapierSchemaMock).toBeCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        overrides: new Map([["dateProp", overrideObj]])
       })
     );
   });

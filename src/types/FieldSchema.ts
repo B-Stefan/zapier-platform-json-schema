@@ -26,7 +26,7 @@ export interface FieldSchema {
   inputFormat?: string;
 }
 
-export enum FieldSchemaKeys {
+export enum FieldSchemaKey {
   Key = "key",
   Label = "key",
   HelpText = "key",
