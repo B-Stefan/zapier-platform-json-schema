@@ -2,7 +2,7 @@ import { validateAppDefinition } from "zapier-platform-schema";
 import ZapierSchemaBuilder from "../../src/ZapierSchemaBuilder";
 // tslint:disable
 const AppDefinition = require("./app-example-defintion.json");
-const schema = require("./input-example.schema.json");
+const schema = require("../json-schema-example.json");
 // tslint:enable
 
 describe("Example: Zapier-Platform-Schema", () => {

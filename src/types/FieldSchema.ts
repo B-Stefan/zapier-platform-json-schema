@@ -27,20 +27,20 @@ export interface FieldSchema {
 }
 
 export enum FieldSchemaKey {
-  Key = "key",
-  Label = "key",
-  HelpText = "key",
-  Type = "key",
-  Required = "key",
-  Placeholder = "key",
-  Default = "key",
-  Dynamic = "key",
-  Search = "key",
-  Choices = "key",
-  List = "key",
-  Children = "key",
-  Dict = "key",
-  Computed = "key",
-  AltersDynamicFields = "key",
-  InputFormat = "key"
+  Key = "Key",
+  Label = "label",
+  HelpText = "hjelpText",
+  Type = "type",
+  Required = "required",
+  Placeholder = "placeholder",
+  Default = "default",
+  Dynamic = "dynamic",
+  Search = "search",
+  Choices = "choices",
+  List = "list",
+  Children = "children",
+  Dict = "dict",
+  Computed = "computed",
+  AltersDynamicFields = "altersDynamicFields",
+  InputFormat = "inputFormat"
 }

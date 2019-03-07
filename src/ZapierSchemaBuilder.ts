@@ -15,7 +15,10 @@ export default class ZapierSchemaBuilder {
 
   private registry: Registry | undefined;
 
-  private overrides: Map<string, { [key in FieldSchemaKey]: any }> = new Map();
+  private overrides: Map<
+    string,
+    Partial<{ [key in FieldSchemaKey]: any }>
+  > = new Map();
 
   constructor(private schema: JSONSchema) {}
 
@@ -37,7 +40,10 @@ export default class ZapierSchemaBuilder {
     this.registry = value;
     return this;
   }
-  public addOverride(key: string, value: { [x in FieldSchemaKey]: any }) {
+  public addOverride(
+    key: string,
+    value: Partial<{ [x in FieldSchemaKey]: any }>
+  ) {
     this.overrides.set(key, value);
     return this;
   }
