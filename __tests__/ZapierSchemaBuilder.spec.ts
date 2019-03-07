@@ -2,6 +2,7 @@ import ZapierSchemaGenerator from "../src/ZapierSchemaGenerator";
 import ZapierSchemaBuilder from "../src/ZapierSchemaBuilder";
 import { mocked } from "ts-jest/utils";
 import { JSONSchema } from "../src/types/JSONSchema";
+import Registry from "../src/Registry";
 
 // tslint:disable-next-line
 const schema = require("./Example.schema.json") as JSONSchema;
@@ -19,6 +20,17 @@ describe("ZapierSchemaBuilder", () => {
     getZapierSchemaMock.mockReset();
   });
 
+  it("builds with registry option", async () => {
+    const registryMock = {} as Registry;
+    builder.setRegistry(registryMock).build();
+
+    expect(getZapierSchemaMock).toBeCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        registry: registryMock
+      })
+    );
+  });
   it("builds with exclude option", async () => {
     builder.addExclude("exclude").build();
 
