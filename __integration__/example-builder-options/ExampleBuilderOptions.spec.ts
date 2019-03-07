@@ -9,9 +9,6 @@ describe("Example: Zapier-Platform-Schema", () => {
   it("get a simple schema", () => {
     const zapierSchema = new ZapierSchemaBuilder(schema).build();
 
-    // tslint:disable-next-line
-    console.log(zapierSchema);
-
     expect(zapierSchema).toBeInstanceOf(Array);
     expect(zapierSchema.length).toEqual(8);
   });
@@ -20,9 +17,6 @@ describe("Example: Zapier-Platform-Schema", () => {
     const zapierSchema = new ZapierSchemaBuilder(schema.definitions.NestedRef)
       .setRegistry(Registry.fromDefinition(schema)) // Use to determinate refs from parent schema
       .build();
-
-    // tslint:disable-next-line
-    console.log(zapierSchema);
 
     expect(zapierSchema).toBeInstanceOf(Array);
     expect(zapierSchema.length).toEqual(2);
@@ -33,9 +27,6 @@ describe("Example: Zapier-Platform-Schema", () => {
       .addOverride("stringProp", { [FieldSchemaKey.Required]: true })
       .addOverride("booleanProp", { [FieldSchemaKey.Required]: true })
       .build();
-
-    // tslint:disable-next-line
-    console.log(zapierSchema);
 
     const requiredFields = zapierSchema.filter(
       (entry: FieldSchema) => entry.required === true
