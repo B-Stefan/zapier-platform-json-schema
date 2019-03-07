@@ -43,13 +43,14 @@ The following list summarize the current scope and supported features of this li
 | datetime      | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
 | enum          | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
 | array         | ❌ |   |
+| anyOf         | ❌ |   |
+| $ref to external| ❌ |     |
 | $ref to object| ✅ |    [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L64) |
 | $ref to enum  | ✅ |    [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L64) |
-| get nested defeintion  |  ❌  |  [#8](./../../issues/8) |
-| Additional props  |   ❌   |  see [#7](./../../issues/7)  |
-| required      | ❌ | see [#7](./../../issues/7) |
-| label         | ❌ | see [#7](./../../issues/7) |
-| ...           | ❌ | see [#7](./../../issues/7) |
+| get nested defeintion  |  ✅  |  [Example](./__integration__/example-builder-options/ExampleBuilderOptions.spec.ts#L16) |
+| Additional props  |   ✅   |  [Example](./__integration__/example-builder-options/ExampleBuilderOptions.spec.ts#L25)  |
+| required      | ✅ | [Example](./__integration__/example-builder-options/ExampleBuilderOptions.spec.ts#L25) |
+| label         | ✅ | [Example](./__integration__/example-builder-options/ExampleBuilderOptions.spec.ts#L25) |
 
 
 ## Test

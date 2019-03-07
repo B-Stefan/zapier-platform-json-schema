@@ -5,7 +5,7 @@ import { FieldSchema, FieldSchemaKey } from "../../src/types/FieldSchema";
 const schema = require("../json-schema-example.json");
 // tslint:enable
 
-describe("Example: Zapier-Platform-Schema", () => {
+describe("Example: Builder options", () => {
   it("get a simple schema", () => {
     const zapierSchema = new ZapierSchemaBuilder(schema).build();
 
