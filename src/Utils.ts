@@ -14,4 +14,7 @@ export default class Utils {
     });
     return newObj;
   }
+  public static flatten<G>(arr: any[]): G[] {
+    return [].concat.apply([], arr) as G[];
+  }
 }
