@@ -20,10 +20,14 @@ export default class ZapierSchemaGenerator {
       includes: [],
       excludes: [],
       excludeAll: false,
-      registry: Registry.fromDefinition(def),
       overrides: new Map(),
       ...options
-    };
+    } as ZapierSchemaGeneratorOptions;
+
+    if (!safeOptions.registry) {
+      safeOptions.registry = Registry.fromDefinition(def);
+    }
+
     const props = this.convertJsonSchema(safeOptions.registry, def);
     const flatten = Utils.flatten<FieldSchema>(props).filter(
       entry => entry !== null

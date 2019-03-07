@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "properties": {
+    "stringProp": {
+      "type": "string"
+    },
+    "booleanProp": {
+      "type": "boolean"
+    },
+    "dateProp": {
+      "description": "Enables basic storage and retrieval of dates and times.",
+      "type": "string",
+      "format": "date-time"
+    },
+    "objectProp": {
+      "type": "object",
+      "properties": {},
+      "additionalProperties": true
+    },
+    "arrayProp": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": true
+      }
+    },
+    "enumRef": {
+      "$ref": "#/definitions/EnumDef"
+    },
+    "enumProp": {
+      "type": "string",
+      "enum": ["option1"]
+    },
+    "nestedRef": {
+      "$ref": "#/definitions/NestedRef"
+    },
+    "multipleTypeProp": {
+      "type": ["string", "boolean"]
+    },
+    "anyOfProp": {
+      "anyOf": [
+        {
+          "description": "Enables basic storage and retrieval of dates and times.",
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    }
+  },
+  "required": [],
+  "definitions": {
+    "EnumDef": {
+      "enum": ["option1", "option2"],
+      "type": "string"
+    },
+    "NestedRef": {
+      "type": "object",
+      "properties": {
+        "stringProp": {
+          "type": "string"
+        },
+        "otherStringProp": {
+          "type": "string"
+        }
+      },
+      "required": []
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}
