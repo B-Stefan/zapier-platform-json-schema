@@ -10,7 +10,7 @@ describe("Example: Builder options", () => {
     const zapierSchema = new ZapierSchemaBuilder(schema).build();
 
     expect(zapierSchema).toBeInstanceOf(Array);
-    expect(zapierSchema.length).toEqual(8);
+    expect(zapierSchema.length).toEqual(9);
   });
 
   it("get a nested schema only ", () => {
@@ -19,7 +19,7 @@ describe("Example: Builder options", () => {
       .build();
 
     expect(zapierSchema).toBeInstanceOf(Array);
-    expect(zapierSchema.length).toEqual(2);
+    expect(zapierSchema.length).toEqual(3);
   });
 
   it("get a schema and require some keys", () => {

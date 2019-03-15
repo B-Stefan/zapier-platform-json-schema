@@ -65,6 +65,9 @@
         },
         "otherStringProp": {
           "type": "string"
+        },
+        "nestedRefToEnum": {
+          "$ref": "#/definitions/EnumDef"
         }
       },
       "required": []

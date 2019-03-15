@@ -122,7 +122,11 @@ export default class ZapierSchemaGenerator {
     }
     return Object.entries(current.properties!).map(([key, prop]) => {
       if (prop.$ref) {
-        return this.getNestedRefTypes(registry, prop, key);
+        const nestedProps = this.getNestedRefTypes(registry, prop, key);
+        if (nestedProps.length === 1) {
+          return nestedProps.pop();
+        }
+        return nestedProps;
       }
       if (!this.getPrimitiveType(prop)) {
         return null;
