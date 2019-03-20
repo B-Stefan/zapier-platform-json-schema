@@ -48,6 +48,16 @@ describe("ZapierSchemaGenerator", () => {
         type: "boolean"
       });
     });
+    it(" supports array with enum items", async () => {
+      const key = "arrayPropEnum";
+      expect(generator.getPrimitiveType(schema.properties![key])).toMatchObject(
+        {
+          type: "string",
+          choices: expect.any(Array),
+          list: true
+        }
+      );
+    });
 
     it(" returns null for not supported array type", async () => {
       const key = "arrayProp";
@@ -91,7 +101,7 @@ describe("ZapierSchemaGenerator", () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"]
       });
-      expect(types.length).toEqual(6);
+      expect(types.length).toEqual(7);
     });
 
     it("prefers nested include over general exclude", async () => {
@@ -99,7 +109,7 @@ describe("ZapierSchemaGenerator", () => {
         excludes: ["nestedRef"],
         includes: ["nestedRef__stringProp"]
       });
-      expect(types.length).toEqual(7);
+      expect(types.length).toEqual(8);
     });
 
     it("exclude all other but respected includes", async () => {
@@ -137,7 +147,7 @@ describe("ZapierSchemaGenerator", () => {
 
   it("flatten all nested types", async () => {
     const types = generator.getZapierSchema(schema);
-    expect(types.length).toEqual(8);
+    expect(types.length).toEqual(9);
   });
 
   it("uses Zapier unsercore keys", async () => {

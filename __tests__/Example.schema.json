@@ -25,6 +25,13 @@
         "additionalProperties": true
       }
     },
+    "arrayPropEnum": {
+      "type": "array",
+      "items": {
+        "enum": ["option1", "option2", "option3"],
+        "type": "string"
+      }
+    },
     "enumRef": {
       "$ref": "#/definitions/EnumDef"
     },

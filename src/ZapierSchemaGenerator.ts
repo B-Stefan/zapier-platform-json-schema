@@ -61,6 +61,12 @@ export default class ZapierSchemaGenerator {
     if (prop.format === "date-time") {
       fieldSchema.type = "datetime";
     } else if (prop.type === "array") {
+      const arrayItems = prop.items;
+      const listType = this.getPrimitiveType(arrayItems);
+
+      if (listType) {
+        return { ...listType, list: true };
+      }
       return null;
     } else if (prop.type === "object") {
       return null;
