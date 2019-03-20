@@ -42,6 +42,7 @@ The following list summarize the current scope and supported features of this li
 | boolean       | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
 | datetime      | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
 | enum          | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
+| array of enum | ✅ | [Example](./__tests__/ZapierSchemaGenerator.spec.ts#L10) |
 | array         | ❌ |   |
 | anyOf         | ❌ |   |
 | $ref to external| ❌ |     |
