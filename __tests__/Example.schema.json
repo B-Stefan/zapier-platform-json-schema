@@ -48,12 +48,22 @@
     "anyOfProp": {
       "anyOf": [
         {
+          "type": "object"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "anyOfPropDatetime": {
+      "anyOf": [
+        {
           "description": "Enables basic storage and retrieval of dates and times.",
           "type": "string",
           "format": "date-time"
         },
         {
-          "type": "boolean"
+          "type": "string"
         }
       ]
     }

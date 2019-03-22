@@ -74,6 +74,15 @@ export default class ZapierSchemaGenerator {
       fieldSchema.type = prop.type
         .filter((entry: any) => entry !== "string")
         .pop();
+    } else if (prop.anyOf) {
+      // Find first non string or string with format type and use this
+      const nonStringProp = prop.anyOf.filter(
+        (anyOfProp: any) => anyOfProp.format || anyOfProp.type !== "string"
+      );
+      if (nonStringProp.length > 1) {
+        return null;
+      }
+      return this.getPrimitiveType(nonStringProp.pop());
     } else if (!prop.type) {
       return null;
     } else {

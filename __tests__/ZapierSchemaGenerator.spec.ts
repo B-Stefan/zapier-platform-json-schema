@@ -59,10 +59,20 @@ describe("ZapierSchemaGenerator", () => {
       );
     });
 
+    it(" supports anyOf with prefer non-string type", async () => {
+      const key = "anyOfPropDatetime";
+      expect(generator.getPrimitiveType(schema.properties![key])).toMatchObject(
+        {
+          type: "datetime"
+        }
+      );
+    });
+
     it(" returns null for not supported array type", async () => {
       const key = "arrayProp";
       expect(generator.getPrimitiveType(schema.properties![key])).toBeNull();
     });
+
     it(" returns null for anyOf type", async () => {
       const key = "anyOfProp";
       expect(generator.getPrimitiveType(schema.properties![key])).toBeNull();
@@ -101,7 +111,7 @@ describe("ZapierSchemaGenerator", () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"]
       });
-      expect(types.length).toEqual(7);
+      expect(types.length).toEqual(8);
     });
 
     it("prefers nested include over general exclude", async () => {
@@ -109,7 +119,7 @@ describe("ZapierSchemaGenerator", () => {
         excludes: ["nestedRef"],
         includes: ["nestedRef__stringProp"]
       });
-      expect(types.length).toEqual(8);
+      expect(types.length).toEqual(9);
     });
 
     it("exclude all other but respected includes", async () => {
@@ -147,7 +157,7 @@ describe("ZapierSchemaGenerator", () => {
 
   it("flatten all nested types", async () => {
     const types = generator.getZapierSchema(schema);
-    expect(types.length).toEqual(9);
+    expect(types.length).toEqual(10);
   });
 
   it("uses Zapier unsercore keys", async () => {
