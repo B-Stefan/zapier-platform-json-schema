@@ -59,10 +59,20 @@ describe("ZapierSchemaGenerator", () => {
       );
     });
 
+    it(" supports anyOf with prefer non-string type", async () => {
+      const key = "anyOfPropDatetime";
+      expect(generator.getPrimitiveType(schema.properties![key])).toMatchObject(
+        {
+          type: "datetime"
+        }
+      );
+    });
+
     it(" returns null for not supported array type", async () => {
       const key = "arrayProp";
       expect(generator.getPrimitiveType(schema.properties![key])).toBeNull();
     });
+
     it(" returns null for anyOf type", async () => {
       const key = "anyOfProp";
       expect(generator.getPrimitiveType(schema.properties![key])).toBeNull();
