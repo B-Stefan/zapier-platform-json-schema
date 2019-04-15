@@ -12,9 +12,11 @@ describe("ZapierSchemaGenerator", () => {
     it("supports string type", async () => {
       const key = "stringProp";
       const type = generator.getPrimitiveType(schema.properties![key]);
-      expect(type).toEqual({
-        type: "string"
-      });
+      expect(type).toEqual(
+        expect.objectContaining({
+          type: "string"
+        })
+      );
     });
     it("supports boolean type", async () => {
       const key = "booleanProp";
@@ -65,6 +67,16 @@ describe("ZapierSchemaGenerator", () => {
         {
           type: "datetime"
         }
+      );
+    });
+
+    it("supports description to help text mapping", async () => {
+      const key = "stringProp";
+      const type = generator.getPrimitiveType(schema.properties![key]);
+      expect(type).toEqual(
+        expect.objectContaining({
+          helpText: schema.properties![key].description
+        })
       );
     });
 

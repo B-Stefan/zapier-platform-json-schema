@@ -88,6 +88,9 @@ export default class ZapierSchemaGenerator {
     } else {
       fieldSchema.type = prop.type;
     }
+    if (prop.description) {
+      fieldSchema.helpText = prop.description;
+    }
     return fieldSchema;
   }
 
