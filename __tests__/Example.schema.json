@@ -2,13 +2,13 @@
   "type": "object",
   "properties": {
     "stringProp": {
+      "description": "Some cool description",
       "type": "string"
     },
     "booleanProp": {
       "type": "boolean"
     },
     "dateProp": {
-      "description": "Enables basic storage and retrieval of dates and times.",
       "type": "string",
       "format": "date-time"
     },
