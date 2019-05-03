@@ -2614,12 +2614,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@4.17.10:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-  integrity sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
-
-lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4:
+lodash@4.17.11, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.4:
   version "4.17.11"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -4540,9 +4535,9 @@ yup@^0.26.10:
     toposort "^2.0.2"
 
 zapier-platform-schema@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.0.1.tgz#117b2e5ad98914dc8e877db76e1ce01302578bec"
-  integrity sha512-97KJ0xVLtpU4BiXVaMTPQpiA0T6CQIEzWfzAWwJAWbu5336+6DMFUzDWN4bANBeD3CIsRHHPcZkP8n/17U05ag==
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.1.0.tgz#089ef1f5aca92ade3b15a79f4c55003bfd38db0d"
+  integrity sha512-9GLUxIirRNA3Mf/tOW05zOoUfuCLljehcR5o6hCT3TBhhvp4wLHg0zjhgR0Tdh0k7DKv1f66ecKdObuN6fDQEA==
   dependencies:
     jsonschema "1.1.1"
-    lodash "4.17.10"
+    lodash "4.17.11"
