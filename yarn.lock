@@ -4533,9 +4533,9 @@ yup@^0.27.0:
     toposort "^2.0.2"
 
 zapier-platform-schema@^8.0.1:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.1.0.tgz#089ef1f5aca92ade3b15a79f4c55003bfd38db0d"
-  integrity sha512-9GLUxIirRNA3Mf/tOW05zOoUfuCLljehcR5o6hCT3TBhhvp4wLHg0zjhgR0Tdh0k7DKv1f66ecKdObuN6fDQEA==
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.2.0.tgz#b9b24a46313badf2d5b8c42eaa9908b42018be7d"
+  integrity sha512-gf2UgpboZycvBNQIs73CCV63yJO5XtRYLAIly6OKvP/0JZrEUuoSkphhaom+lVolFa6wIVQOwfuvSw84e6Ht/A==
   dependencies:
     jsonschema "1.1.1"
     lodash "4.17.11"
