@@ -15,6 +15,10 @@ export default class Utils {
     return newObj;
   }
   public static flatten<G>(arr: any[]): G[] {
-    return [].concat.apply([], arr) as G[];
+    return arr.reduce((flat, toFlatten) => {
+      return flat.concat(
+        Array.isArray(toFlatten) ? Utils.flatten<G>(toFlatten) : toFlatten
+      );
+    }, []);
   }
 }
