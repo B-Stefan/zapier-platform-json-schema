@@ -190,7 +190,7 @@ describe("ZapierSchemaGenerator", () => {
     const schemas = generator.getZapierSchema(schema);
     const startWithDoubleUnderscore = schemas
       .map((prop: any) => prop.key)
-      .filter(propKey => !propKey.startsWith(key))
+      .filter(propKey => propKey.startsWith(key))
       .filter((keyInList: string) => !keyInList.includes(key + "__"));
     expect(startWithDoubleUnderscore.length).toEqual(0);
   });
