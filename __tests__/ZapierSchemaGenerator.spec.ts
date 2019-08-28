@@ -145,7 +145,7 @@ describe("ZapierSchemaGenerator", () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"]
       });
-      expect(types.length).toEqual(8);
+      expect(types.length).toEqual(9);
     });
 
     it("prefers nested include over general exclude", async () => {
@@ -153,7 +153,7 @@ describe("ZapierSchemaGenerator", () => {
         excludes: ["nestedRef"],
         includes: ["nestedRef.stringProp"]
       });
-      expect(types.length).toEqual(9);
+      expect(types.length).toEqual(10);
     });
 
     it("exclude all other but respected includes", async () => {
@@ -191,7 +191,7 @@ describe("ZapierSchemaGenerator", () => {
 
   it("flatten all nested types", async () => {
     const types = generator.getZapierSchema(schema);
-    expect(types.length).toEqual(10);
+    expect(types.length).toEqual(11);
   });
 
   it("uses Zapier unsercore keys", async () => {
