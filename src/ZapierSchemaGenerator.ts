@@ -67,7 +67,11 @@ export default class ZapierSchemaGenerator {
     }
 
     if (prop.type && prop.type instanceof Array) {
-      prop.type = prop.type.filter((entry: any) => entry !== "string").pop();
+      const types = prop.type;
+      prop.type = types.filter((entry: any) => entry !== "string").pop();
+      if (prop.type === "null") {
+        prop.type = types.filter((entry: any) => entry !== "null").pop();
+      }
     }
 
     fieldSchema.key = (parentKey ? parentKey + "." : "") + key;

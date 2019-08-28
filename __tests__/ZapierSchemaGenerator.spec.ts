@@ -59,6 +59,15 @@ describe("ZapierSchemaGenerator", () => {
         })
       );
     });
+    it("supports multiple types (prefer non-null)", async () => {
+      const key = "multipleTypePropWithNull";
+      const type = generator.getFieldSchema(schema.properties![key], key);
+      expect(type).toEqual(
+        expect.objectContaining({
+          type: "string"
+        })
+      );
+    });
     it(" supports array with enum items", async () => {
       const key = "arrayPropEnum";
       expect(

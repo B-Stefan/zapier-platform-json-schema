@@ -45,6 +45,9 @@
     "multipleTypeProp": {
       "type": ["string", "boolean"]
     },
+    "multipleTypePropWithNull": {
+      "type": ["string", "null"]
+    },
     "anyOfProp": {
       "anyOf": [
         {
