@@ -19,7 +19,7 @@ export interface FieldSchema {
   search?: any;
   choices?: any[];
   list?: boolean;
-  children?: FieldSchema[];
+  children?: FieldSchema[] | null;
   dict?: boolean;
   computed?: boolean;
   altersDynamicFields?: boolean;

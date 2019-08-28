@@ -2,6 +2,12 @@ import { JSONSchema } from "./types/JSONSchema";
 import { FieldSchema } from "./types/FieldSchema";
 import Registry from "./Registry";
 import Utils from "./Utils";
+import { transformDate } from "./transforms/transformDate";
+import { transformItems } from "./transforms/transformItems";
+import { transformAnyOf } from "./transforms/transformAnyOf";
+import { transformDefault } from "./transforms/transformDefault";
+import * as _ from "lodash";
+import { transformObject } from "./transforms/transformObject";
 
 interface ZapierSchemaGeneratorOptions {
   excludeAll: boolean;
@@ -28,77 +34,104 @@ export default class ZapierSchemaGenerator {
       safeOptions.registry = Registry.fromDefinition(def);
     }
 
-    const props = this.convertJsonSchema(safeOptions.registry, def);
-    const flatten = Utils.flatten<FieldSchema>(props).filter(
-      entry => entry !== null
-    );
+    this.dehydrateRefs(safeOptions.registry, def);
+
+    const schema = this.getFieldSchema(def, "");
+
+    if (!schema) {
+      throw new Error(`Unabled to get field schema ${def}`);
+    }
+
+    const flatten = Utils.flatten<FieldSchema>(this.getFieldSchemaArray(
+      schema
+    ) as FieldSchema[]).filter(value => value !== null);
 
     const filtered = this.filterByOptions(flatten, safeOptions);
-    return this.injectOverrides(filtered, safeOptions);
+
+    const overrides = this.injectOverrides(filtered, safeOptions);
+
+    return overrides.map(value => {
+      return { ...value, key: Utils.getZapierReference(value.key) };
+    });
   }
-  public getNestedRefTypes(registry: Registry, prop: any, key: string) {
-    const name = prop.$ref.split("/").pop();
-    const def = registry.getDefinition(name);
-    const props = this.convertJsonSchema(registry, def);
-    if (props instanceof Array) {
-      return props
-        .filter((nested: any) => nested !== null)
-        .map((nested: any) => {
-          return {
-            ...nested,
-            key: Utils.getZapierReference(key + "." + nested.key)
-          };
-        });
-    }
-    return [{ key, ...this.getPrimitiveType(def) }];
-  }
+
   // FIXME: Change to private only for testing public
-  public getPrimitiveType(prop: any): Partial<FieldSchema> | null {
+  public getFieldSchema(
+    prop: any,
+    key: string,
+    parentKey?: string
+  ): Partial<FieldSchema> | null {
     const fieldSchema = {} as Partial<FieldSchema>;
     if (prop.enum) {
       fieldSchema.choices = prop.enum;
     }
-    if (prop.format === "date-time") {
-      fieldSchema.type = "datetime";
-    } else if (prop.type === "array") {
-      const arrayItems = prop.items;
-      const listType = this.getPrimitiveType(arrayItems);
 
-      if (listType) {
-        return { ...listType, list: true };
-      }
-      return null;
+    if (prop.type && prop.type instanceof Array) {
+      prop.type = prop.type.filter((entry: any) => entry !== "string").pop();
+    }
+
+    fieldSchema.key = (parentKey ? parentKey + "." : "") + key;
+
+    if (prop.description) {
+      fieldSchema.helpText = prop.description;
+    }
+
+    if (prop.format === "date-time") {
+      transformDate(fieldSchema, prop, this);
+    } else if (prop.type === "array") {
+      return transformItems(fieldSchema, prop, this);
     } else if (prop.type === "object") {
-      return null;
-    } else if (prop.type && prop.type instanceof Array) {
-      fieldSchema.type = prop.type
-        .filter((entry: any) => entry !== "string")
-        .pop();
+      return transformObject(fieldSchema, prop, this);
     } else if (prop.anyOf) {
-      // Find first non string or string with format type and use this
-      const nonStringProp = prop.anyOf.filter(
-        (anyOfProp: any) => anyOfProp.format || anyOfProp.type !== "string"
-      );
-      if (nonStringProp.length > 1) {
-        return null;
-      }
-      return this.getPrimitiveType(nonStringProp.pop());
+      return transformAnyOf(fieldSchema, prop, this);
     } else if (!prop.type) {
       return null;
     } else {
-      fieldSchema.type = prop.type;
-    }
-    if (prop.description) {
-      fieldSchema.helpText = prop.description;
+      transformDefault(fieldSchema, prop, this);
     }
     return fieldSchema;
   }
 
+  public dehydrateRefs(registry: Registry, current: JSONSchema) {
+    if (current.properties) {
+      Object.values(current.properties).forEach((prop: any) =>
+        this.dehydrateRefs(registry, prop)
+      );
+    }
+    if (!current.$ref) {
+      return;
+    }
+
+    const name = current.$ref.split("/").pop();
+    if (!name) {
+      throw new Error(`Unabled to parse ref: ${current.$ref}`);
+    }
+    const def = registry.getDefinition(name);
+
+    this.dehydrateRefs(registry, def);
+
+    Object.assign(current, _.merge(current, def));
+  }
+
+  private getFieldSchemaArray(
+    fieldSchema: Partial<FieldSchema>
+  ): Array<Partial<FieldSchema>> | Partial<FieldSchema> | null {
+    if (!fieldSchema) {
+      return null;
+    }
+    if (fieldSchema.children) {
+      // @ts-ignore
+      return fieldSchema.children.map(schema =>
+        this.getFieldSchemaArray(schema)
+      );
+    }
+    return fieldSchema;
+  }
   private filterByOptions(
     props: FieldSchema[],
     options: ZapierSchemaGeneratorOptions
   ) {
-    return props.filter((prop: FieldSchema) => {
+    return props.filter(prop => {
       if (options.includes.find(include => prop.key.indexOf(include) > -1)) {
         return true;
       }
@@ -132,24 +165,5 @@ export default class ZapierSchemaGenerator {
       dict[key] = { ...found, ...value };
     });
     return Object.values(dict);
-  }
-
-  private convertJsonSchema(registry: Registry, current: JSONSchema): any {
-    if (!current.properties) {
-      return this.getPrimitiveType(current);
-    }
-    return Object.entries(current.properties!).map(([key, prop]) => {
-      if (prop.$ref) {
-        const nestedProps = this.getNestedRefTypes(registry, prop, key);
-        if (nestedProps.length === 1) {
-          return nestedProps.pop();
-        }
-        return nestedProps;
-      }
-      if (!this.getPrimitiveType(prop)) {
-        return null;
-      }
-      return { key, ...this.getPrimitiveType(prop) };
-    });
   }
 }

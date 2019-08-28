@@ -1,6 +1,7 @@
 import ZapierSchemaGenerator from "../src/ZapierSchemaGenerator";
 import { JSONSchema } from "../src/types/JSONSchema";
 import Registry from "../src/Registry";
+import * as _ from "lodash";
 
 // tslint:disable-next-line
 const schema = require("./Example.schema.json") as JSONSchema;
@@ -11,7 +12,7 @@ describe("ZapierSchemaGenerator", () => {
   describe("PrimitiveTypes", () => {
     it("supports string type", async () => {
       const key = "stringProp";
-      const type = generator.getPrimitiveType(schema.properties![key]);
+      const type = generator.getFieldSchema(schema.properties![key], key);
       expect(type).toEqual(
         expect.objectContaining({
           type: "string"
@@ -20,59 +21,67 @@ describe("ZapierSchemaGenerator", () => {
     });
     it("supports boolean type", async () => {
       const key = "booleanProp";
-      const type = generator.getPrimitiveType(schema.properties![key]);
-      expect(type).toEqual({
-        type: "boolean"
-      });
+      const type = generator.getFieldSchema(schema.properties![key], key);
+      expect(type).toEqual(
+        expect.objectContaining({
+          type: "boolean"
+        })
+      );
     });
 
     it("supports datetime type", async () => {
       const key = "dateProp";
-      const type = generator.getPrimitiveType(schema.properties![key]);
-      expect(type).toEqual({
-        type: "datetime"
-      });
+      const type = generator.getFieldSchema(schema.properties![key], key);
+      expect(type).toEqual(
+        expect.objectContaining({
+          type: "datetime"
+        })
+      );
     });
 
     it("supports enum type", async () => {
       const key = "enumProp";
-      const type = generator.getPrimitiveType(schema.properties![key]);
-      expect(type).toEqual({
-        type: "string",
-        choices: ["option1"]
-      });
+      const type = generator.getFieldSchema(schema.properties![key], key);
+      expect(type).toEqual(
+        expect.objectContaining({
+          type: "string",
+          choices: ["option1"]
+        })
+      );
     });
 
     it("supports multiple types (prefer non-string)", async () => {
       const key = "multipleTypeProp";
-      const type = generator.getPrimitiveType(schema.properties![key]);
-      expect(type).toEqual({
-        type: "boolean"
-      });
+      const type = generator.getFieldSchema(schema.properties![key], key);
+      expect(type).toEqual(
+        expect.objectContaining({
+          type: "boolean"
+        })
+      );
     });
     it(" supports array with enum items", async () => {
       const key = "arrayPropEnum";
-      expect(generator.getPrimitiveType(schema.properties![key])).toMatchObject(
-        {
-          type: "string",
-          choices: expect.any(Array),
-          list: true
-        }
-      );
+      expect(
+        generator.getFieldSchema(schema.properties![key], key)
+      ).toMatchObject({
+        type: "string",
+        choices: expect.any(Array),
+        list: true
+      });
     });
 
     it(" supports anyOf with prefer non-string type", async () => {
       const key = "anyOfPropDatetime";
-      expect(generator.getPrimitiveType(schema.properties![key])).toMatchObject(
-        {
-          type: "datetime"
-        }
-      );
+      expect(
+        generator.getFieldSchema(schema.properties![key], key)
+      ).toMatchObject({
+        type: "datetime"
+      });
     });
 
     it("supports description to help text mapping", async () => {
       const key = "stringProp";
-      const type = generator.getPrimitiveType(schema.properties![key]);
+      const type = generator.getFieldSchema(schema.properties![key], key);
       expect(type).toEqual(
         expect.objectContaining({
           helpText: schema.properties![key].description
@@ -80,41 +89,45 @@ describe("ZapierSchemaGenerator", () => {
       );
     });
 
-    it(" returns null for not supported array type", async () => {
+    it(" returns empty children for empty array items type", async () => {
       const key = "arrayProp";
-      expect(generator.getPrimitiveType(schema.properties![key])).toBeNull();
+      expect(generator.getFieldSchema(schema.properties![key], key)).toEqual(
+        expect.objectContaining({
+          children: []
+        })
+      );
     });
 
     it(" returns null for anyOf type", async () => {
       const key = "anyOfProp";
-      expect(generator.getPrimitiveType(schema.properties![key])).toBeNull();
+      expect(generator.getFieldSchema(schema.properties![key], key)).toBeNull();
     });
   });
 
   describe("$ref", () => {
+    const registry = Registry.fromDefinition(schema);
     it("supports $ref enum types", async () => {
       const key = "enumRef";
-      const [type] = generator.getNestedRefTypes(
-        Registry.fromDefinition(schema),
-        schema.properties![key],
-        key
+      const clone = _.cloneDeep(schema);
+      generator.dehydrateRefs(registry, clone);
+
+      expect(clone.properties![key]).toEqual(
+        expect.objectContaining({
+          enum: ["option1", "option2"]
+        })
       );
-      expect(type).toEqual({
-        key,
-        type: "string",
-        choices: ["option1", "option2"]
-      });
     });
 
     it("supports $ref object types", async () => {
       const key = "nestedRef";
-      const types = generator.getNestedRefTypes(
-        Registry.fromDefinition(schema),
-        schema.properties![key],
-        key
+      const clone = _.cloneDeep(schema);
+      generator.dehydrateRefs(registry, clone);
+
+      expect(clone.properties![key]).toEqual(
+        expect.objectContaining({
+          properties: expect.any(Object)
+        })
       );
-      expect(types).toBeInstanceOf(Array);
-      expect(types.length).toBeGreaterThan(0);
     });
   });
 
@@ -129,7 +142,7 @@ describe("ZapierSchemaGenerator", () => {
     it("prefers nested include over general exclude", async () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"],
-        includes: ["nestedRef__stringProp"]
+        includes: ["nestedRef.stringProp"]
       });
       expect(types.length).toEqual(9);
     });
@@ -137,7 +150,7 @@ describe("ZapierSchemaGenerator", () => {
     it("exclude all other but respected includes", async () => {
       const types = generator.getZapierSchema(schema, {
         excludeAll: true,
-        includes: ["nestedRef__stringProp"]
+        includes: ["nestedRef.stringProp"]
       });
       expect(types.length).toEqual(1);
     });
@@ -174,15 +187,11 @@ describe("ZapierSchemaGenerator", () => {
 
   it("uses Zapier unsercore keys", async () => {
     const key = "nestedRef";
-    const types = generator.getNestedRefTypes(
-      Registry.fromDefinition(schema),
-      schema.properties![key],
-      key
-    );
-    const keys = types.map((prop: any) => prop.key);
-    const startWithDoubleUnderscore = keys.filter(
-      (keyInList: string) => !keyInList.startsWith(key + "__")
-    );
+    const schemas = generator.getZapierSchema(schema);
+    const startWithDoubleUnderscore = schemas
+      .map((prop: any) => prop.key)
+      .filter(propKey => !propKey.startsWith(key))
+      .filter((keyInList: string) => !keyInList.includes(key + "__"));
     expect(startWithDoubleUnderscore.length).toEqual(0);
   });
 });
