@@ -141,6 +141,20 @@ describe("ZapierSchemaGenerator", () => {
   });
 
   describe("Options", () => {
+    it("excludes based on function result", async () => {
+      const excludeFn = jest.fn().mockReturnValue(true);
+      const types = generator.getZapierSchema(schema, {
+        excludes: [excludeFn]
+      });
+      expect(excludeFn).toBeCalled();
+    });
+    it("includes based on function result", async () => {
+      const includesFn = jest.fn().mockReturnValue(true);
+      const types = generator.getZapierSchema(schema, {
+        includes: [includesFn]
+      });
+      expect(includesFn).toBeCalled();
+    });
     it("excludes fileds when in options declared", async () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"]

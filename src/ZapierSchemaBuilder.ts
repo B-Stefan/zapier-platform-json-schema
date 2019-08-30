@@ -1,4 +1,4 @@
-import ZapierSchemaGenerator from "./ZapierSchemaGenerator";
+import ZapierSchemaGenerator, { filterFn } from "./ZapierSchemaGenerator";
 
 import { JSONSchema } from "./types/JSONSchema";
 
@@ -7,9 +7,9 @@ import Registry from "./Registry";
 import Utils from "./Utils";
 
 export default class ZapierSchemaBuilder {
-  private includes: string[] = [];
+  private includes: Array<string | filterFn> = [];
 
-  private excludes: string[] = [];
+  private excludes: Array<string | filterFn> = [];
 
   private excludeAll: boolean = false;
 
@@ -22,12 +22,20 @@ export default class ZapierSchemaBuilder {
 
   constructor(private schema: JSONSchema) {}
 
-  public addInclude(key: string) {
-    this.includes.push(Utils.getZapierReference(key));
+  public addInclude(key: string | filterFn) {
+    if (typeof key === "function") {
+      this.includes.push(key);
+    } else {
+      this.includes.push(Utils.getZapierReference(key));
+    }
     return this;
   }
-  public addExclude(key: string) {
-    this.excludes.push(Utils.getZapierReference(key));
+  public addExclude(key: string | filterFn) {
+    if (typeof key === "function") {
+      this.excludes.push(key);
+    } else {
+      this.excludes.push(Utils.getZapierReference(key));
+    }
     return this;
   }
 

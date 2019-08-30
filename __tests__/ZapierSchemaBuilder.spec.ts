@@ -15,9 +15,10 @@ describe("ZapierSchemaBuilder", () => {
   mocked(ZapierSchemaGenerator).mockImplementation(() => ({
     getZapierSchema: getZapierSchemaMock
   }));
-  const builder = new ZapierSchemaBuilder(schema);
+  let builder: ZapierSchemaBuilder;
 
   beforeEach(() => {
+    builder = new ZapierSchemaBuilder(schema);
     getZapierSchemaMock.mockReset();
   });
 
@@ -51,6 +52,18 @@ describe("ZapierSchemaBuilder", () => {
       expect.any(Object),
       expect.objectContaining({
         excludes: ["exclude"]
+      })
+    );
+  });
+
+  it("builds with exclude option", async () => {
+    const excludeFn = () => true;
+    builder.addExclude(excludeFn).build();
+
+    expect(getZapierSchemaMock).toBeCalledWith(
+      expect.any(Object),
+      expect.objectContaining({
+        excludes: [excludeFn]
       })
     );
   });

@@ -9,10 +9,12 @@ import { transformDefault } from "./transforms/transformDefault";
 import * as _ from "lodash";
 import { transformObject } from "./transforms/transformObject";
 
+export type filterFn = (field: FieldSchema) => boolean;
+
 interface ZapierSchemaGeneratorOptions {
   excludeAll: boolean;
-  excludes: string[];
-  includes: string[];
+  excludes: Array<string | filterFn>;
+  includes: Array<string | filterFn>;
   overrides: Map<string, any>;
   registry?: Registry;
 }
@@ -136,14 +138,26 @@ export default class ZapierSchemaGenerator {
     options: ZapierSchemaGeneratorOptions
   ) {
     return props.filter(prop => {
-      if (options.includes.find(include => prop.key.indexOf(include) > -1)) {
+      if (
+        options.includes.find(include => {
+          if (typeof include === "function") {
+            return include(prop);
+          }
+          return prop.key.indexOf(include) > -1;
+        })
+      ) {
         return true;
       }
       // Exclude rules
       if (options.excludeAll) {
         return false;
       } else if (
-        options.excludes.find(exclude => prop.key.indexOf(exclude) > -1)
+        options.excludes.find(exclude => {
+          if (typeof exclude === "function") {
+            return exclude(prop);
+          }
+          return prop.key.indexOf(exclude) > -1;
+        })
       ) {
         return false;
       }
