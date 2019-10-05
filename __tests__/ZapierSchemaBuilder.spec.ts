@@ -8,18 +8,19 @@ import { FieldSchemaKey } from "../src/types/FieldSchema";
 // tslint:disable-next-line
 const schema = require("./Example.schema.json") as JSONSchema;
 
-jest.mock("../src/ZapierSchemaGenerator");
-
+const getZapierSchemaMock = jest.fn();
+jest.mock("../src/ZapierSchemaGenerator", () => {
+  return {
+    default: class MockedImpl {
+      public getZapierSchema = getZapierSchemaMock;
+    }
+  };
+});
 describe("ZapierSchemaBuilder", () => {
-  const getZapierSchemaMock = jest.fn();
-  mocked(ZapierSchemaGenerator).mockImplementation(() => ({
-    getZapierSchema: getZapierSchemaMock
-  }));
   let builder: ZapierSchemaBuilder;
-
   beforeEach(() => {
     builder = new ZapierSchemaBuilder(schema);
-    getZapierSchemaMock.mockReset();
+    jest.clearAllMocks();
   });
 
   it("builds with registry option", async () => {
