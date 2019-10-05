@@ -249,14 +249,12 @@
             {
               "key": "owner_id",
               "label": "Owner",
-              "type": "integer",
-              "dynamic": "user"
+              "type": "integer"
             },
             {
               "key": "tag_id",
               "label": "Tag",
               "type": "integer",
-              "dynamic": "tag.id.name",
               "search": "tag.id"
             }
           ]
@@ -282,8 +280,7 @@
           {
             "key": "tagId",
             "label": "Tag",
-            "type": "integer",
-            "dynamic": "tag"
+            "type": "integer"
           }
         ],
         "sample": {
@@ -448,14 +445,12 @@
           {
             "key": "owner_id",
             "label": "Owner",
-            "type": "integer",
-            "dynamic": "user"
+            "type": "integer"
           },
           {
             "key": "tag_id",
             "label": "Tag",
-            "type": "integer",
-            "dynamic": "tag"
+            "type": "integer"
           }
         ],
         "resource": "contact",
