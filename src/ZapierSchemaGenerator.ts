@@ -107,6 +107,21 @@ export default class ZapierSchemaGenerator {
         this.dehydrateRefs(registry, prop)
       );
     }
+    if (current.anyOf) {
+      current.anyOf.forEach((entry: any) =>
+        this.dehydrateRefs(registry, entry)
+      );
+    }
+    if (current.allOf) {
+      current.allOf.forEach((entry: any) =>
+        this.dehydrateRefs(registry, entry)
+      );
+    }
+    if (current.oneOf) {
+      current.oneOf.forEach((entry: any) =>
+        this.dehydrateRefs(registry, entry)
+      );
+    }
     if (!current.$ref) {
       return;
     }

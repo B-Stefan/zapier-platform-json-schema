@@ -150,6 +150,14 @@ describe("ZapierSchemaGenerator", () => {
         })
       );
     });
+    it("supports $ref for allOf", async () => {
+      const key = "allOfProp";
+      const clone = _.cloneDeep(schema);
+      generator.dehydrateRefs(registry, clone);
+      expect(JSON.stringify(clone.properties![key])).toEqual(
+        expect.stringContaining('"enum":[')
+      );
+    });
   });
 
   describe("Options", () => {
