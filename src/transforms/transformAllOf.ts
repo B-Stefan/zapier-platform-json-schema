@@ -1,6 +1,5 @@
 import { FieldSchema } from "../types/FieldSchema";
 import ZapierSchemaGenerator from "../ZapierSchemaGenerator";
-import * as _ from "lodash";
 export function transformAllOf(
   fieldSchema: Partial<FieldSchema>,
   prop: any,
