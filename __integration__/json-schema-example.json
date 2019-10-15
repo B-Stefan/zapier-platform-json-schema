@@ -21,7 +21,11 @@
       "type": "array",
       "items": {
         "type": "object",
-        "properties": {},
+        "properties": {
+          "arrayChildProp": {
+            "type": "string"
+          }
+        },
         "additionalProperties": true
       }
     },
@@ -44,6 +48,26 @@
     },
     "multipleTypeProp": {
       "type": ["string", "boolean"]
+    },
+    "allOfProp": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "firstOne": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "second": {
+              "type": "string"
+            }
+          }
+        }
+      ]
     },
     "anyOfProp": {
       "anyOf": [

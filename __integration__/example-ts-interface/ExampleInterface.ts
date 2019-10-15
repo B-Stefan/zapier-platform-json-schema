@@ -1,3 +1,6 @@
+export interface ArrayItem {
+  stringProp: string;
+}
 export default interface ExampleInterface {
   stringProp: string;
   dateProp: Date;
@@ -5,5 +8,6 @@ export default interface ExampleInterface {
     nestedString: string;
     nestedNumber: number;
   };
+  arr: ArrayItem[];
   multipleBoolProp: string | boolean;
 }

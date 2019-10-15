@@ -79,12 +79,24 @@ describe("ZapierSchemaGenerator", () => {
       });
     });
 
-    it(" supports anyOf with prefer non-string type", async () => {
+    it("supports anyOf with prefer non-string type", async () => {
       const key = "anyOfPropDatetime";
       expect(
         generator.getFieldSchema(schema.properties![key], key)
       ).toMatchObject({
         type: "datetime"
+      });
+    });
+
+    it(" supports allOf by merge all schemas", async () => {
+      const key = "allOfProp";
+      expect(
+        generator.getFieldSchema(schema.properties![key], key)
+      ).toMatchObject({
+        children: [
+          { key: "allOfProp.secondProp", type: "string" },
+          { key: "allOfProp.firstProp", type: "string" }
+        ]
       });
     });
 
@@ -107,7 +119,7 @@ describe("ZapierSchemaGenerator", () => {
       );
     });
 
-    it(" returns null for anyOf type", async () => {
+    it(" returns null for multiple complex anyOf type", async () => {
       const key = "anyOfProp";
       expect(generator.getFieldSchema(schema.properties![key], key)).toBeNull();
     });
@@ -159,7 +171,7 @@ describe("ZapierSchemaGenerator", () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"]
       });
-      expect(types.length).toEqual(9);
+      expect(types.length).toEqual(11);
     });
 
     it("prefers nested include over general exclude", async () => {
@@ -167,7 +179,7 @@ describe("ZapierSchemaGenerator", () => {
         excludes: ["nestedRef"],
         includes: ["nestedRef.stringProp"]
       });
-      expect(types.length).toEqual(10);
+      expect(types.length).toEqual(12);
     });
 
     it("exclude all other but respected includes", async () => {
@@ -205,7 +217,7 @@ describe("ZapierSchemaGenerator", () => {
 
   it("flatten all nested types", async () => {
     const types = generator.getZapierSchema(schema);
-    expect(types.length).toEqual(11);
+    expect(types.length).toEqual(13);
   });
 
   it("uses Zapier unsercore keys", async () => {

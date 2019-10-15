@@ -58,6 +58,26 @@
         }
       ]
     },
+    "allOfProp": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "firstProp": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "properties": {
+            "secondProp": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
     "anyOfPropDatetime": {
       "anyOf": [
         {

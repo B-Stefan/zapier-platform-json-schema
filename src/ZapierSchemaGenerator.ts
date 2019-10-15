@@ -8,6 +8,7 @@ import { transformAnyOf } from "./transforms/transformAnyOf";
 import { transformDefault } from "./transforms/transformDefault";
 import * as _ from "lodash";
 import { transformObject } from "./transforms/transformObject";
+import { transformAllOf } from "./transforms/transformAllOf";
 
 export type filterFn = (field: FieldSchema) => boolean;
 
@@ -90,6 +91,8 @@ export default class ZapierSchemaGenerator {
       return transformObject(fieldSchema, prop, this);
     } else if (prop.anyOf) {
       return transformAnyOf(fieldSchema, prop, this);
+    } else if (prop.allOf) {
+      return transformAllOf(fieldSchema, prop, this);
     } else if (!prop.type) {
       return null;
     } else {
