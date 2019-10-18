@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "stringProp": {
+      "title": "Some Title",
       "description": "Some cool description",
       "type": "string"
     },

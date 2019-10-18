@@ -110,6 +110,16 @@ describe("ZapierSchemaGenerator", () => {
       );
     });
 
+    it("supports title to title mapping", async () => {
+      const key = "stringProp";
+      const type = generator.getFieldSchema(schema.properties![key], key);
+      expect(type).toEqual(
+        expect.objectContaining({
+          label: schema.properties![key].title
+        })
+      );
+    });
+
     it(" returns empty children for empty array items type", async () => {
       const key = "arrayProp";
       expect(generator.getFieldSchema(schema.properties![key], key)).toEqual(
