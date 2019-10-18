@@ -82,6 +82,9 @@ export default class ZapierSchemaGenerator {
     if (prop.description) {
       fieldSchema.helpText = prop.description;
     }
+    if (prop.title) {
+      fieldSchema.label = prop.title;
+    }
 
     if (prop.format === "date-time") {
       transformDate(fieldSchema, prop, this);
