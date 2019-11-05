@@ -2707,12 +2707,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@4.17.11:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
-
-lodash@^4.13.1, lodash@^4.17.11, lodash@^4.17.13:
+lodash@4.17.15, lodash@^4.13.1, lodash@^4.17.11, lodash@^4.17.13:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -4489,9 +4484,9 @@ yn@^3.0.0:
   integrity sha512-+Wo/p5VRfxUgBUGy2j/6KX2mj9AYJWOHuhMjMcbBFc3y54o9/4buK1ksBvuiK01C3kby8DH9lSmJdSxw+4G/2Q==
 
 zapier-platform-schema@^8.0.1:
-  version "8.4.1"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.4.1.tgz#5ee0174af4d149d071e4ee5a7901d940f27f7519"
-  integrity sha512-AltamP8bYxISH1TpZ4fegjlE9pMWuOUkMpIPX0BcvmNba5CLH+/F71BlhXiv3KLaTxnsh3nMyjOoGznxc2NplQ==
+  version "8.4.2"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.4.2.tgz#b4e8fba23b3ef0b484590f406b6b97da2642282a"
+  integrity sha512-HhXiV5mXPWjq/iTsCZDlxMGxR5q/7+evudeEEDxlk8yEy3d5uKE+b8IqSs5eJ4X99eO8jTBWwdiZqiOr4J95tQ==
   dependencies:
     jsonschema "1.1.1"
-    lodash "4.17.11"
+    lodash "4.17.15"
