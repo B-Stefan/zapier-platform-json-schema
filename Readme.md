@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/B-Stefan/zapier-platform-json-schema.svg?branch=master)](https://travis-ci.org/B-Stefan/zapier-platform-json-schema)
 # Zapier Platform JSON Schema
 
-This project converts json Schema to the ZapierPlatform schema
+This project converts json Schema to the ZapierPlatform schema with zero runtime dependencies.
 
 ## Getting started
 
