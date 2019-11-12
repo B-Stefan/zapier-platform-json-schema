@@ -6,7 +6,6 @@ import { transformDate } from "./transforms/transformDate";
 import { transformItems } from "./transforms/transformItems";
 import { transformAnyOf } from "./transforms/transformAnyOf";
 import { transformDefault } from "./transforms/transformDefault";
-import * as _ from "lodash";
 import { transformObject } from "./transforms/transformObject";
 import { transformAllOf } from "./transforms/transformAllOf";
 
@@ -137,7 +136,7 @@ export default class ZapierSchemaGenerator {
 
     this.dehydrateRefs(registry, def);
 
-    Object.assign(current, _.merge(current, def));
+    Object.assign(current, def);
   }
 
   private getFieldSchemaArray(

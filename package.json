@@ -13,15 +13,11 @@
     "test": "jest",
     "lint": "tslint --project ."
   },
-  "dependencies": {
-    "lodash": "^4.17.11"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^24.0.18",
-    "@types/lodash": "^4.14.121",
     "@types/node": "^12.0.0",
     "husky": "3.0.9",
-    "typescript-json-schema": "^0.40.0",
     "jest": "^24.9.0",
     "lint-staged": "^9.1.0",
     "prettier": "^1.16.4",
@@ -29,6 +25,7 @@
     "ts-node": "^8.0.2",
     "tslint": "^5.13.1",
     "typescript": "^3.3",
+    "typescript-json-schema": "^0.40.0",
     "zapier-platform-schema": "^8.0.1"
   },
   "husky": {
