@@ -2517,10 +2517,10 @@ jsonify@~0.0.0:
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
   integrity sha1-LHS27kHZPKUbe1qu6PUDYx0lKnM=
 
-jsonschema@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/jsonschema/-/jsonschema-1.1.1.tgz#3cede8e3e411d377872eefbc9fdf26383cbc3ed9"
-  integrity sha1-PO3o4+QR03eHLu+8n98mODy8Ptk=
+jsonschema@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/jsonschema/-/jsonschema-1.2.2.tgz#83ab9c63d65bf4d596f91d81195e78772f6452bc"
+  integrity sha512-iX5OFQ6yx9NgbHCwse51ohhKgLuLL7Z5cNOeZOPIlDUtAMrxlruHLzVZxbltdHE5mEDXN+75oFOwq6Gn0MZwsA==
 
 jsprim@^1.2.2:
   version "1.4.1"
@@ -4459,10 +4459,10 @@ yn@^3.0.0:
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.0.0.tgz#0073c6b56e92aed652fbdfd62431f2d6b9a7a091"
   integrity sha512-+Wo/p5VRfxUgBUGy2j/6KX2mj9AYJWOHuhMjMcbBFc3y54o9/4buK1ksBvuiK01C3kby8DH9lSmJdSxw+4G/2Q==
 
-zapier-platform-schema@^8.0.1:
-  version "8.4.2"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-8.4.2.tgz#b4e8fba23b3ef0b484590f406b6b97da2642282a"
-  integrity sha512-HhXiV5mXPWjq/iTsCZDlxMGxR5q/7+evudeEEDxlk8yEy3d5uKE+b8IqSs5eJ4X99eO8jTBWwdiZqiOr4J95tQ==
+zapier-platform-schema@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-9.0.0.tgz#b7f8033d672af8b98bf359cbc1c2d55a9036ed43"
+  integrity sha512-Xh+oU8nFK8mdCpJgXovRvbXDkQsrieMpVElIvcKmvhctX1spVKvpZaeDdYGxOMWTi/0ji6opX3/MKKqgjd2r1w==
   dependencies:
-    jsonschema "1.1.1"
+    jsonschema "1.2.2"
     lodash "4.17.15"
