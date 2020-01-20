@@ -20,7 +20,7 @@
     "@types/node": "^13.1.0",
     "husky": "3.1.0",
     "jest": "^24.9.0",
-    "lint-staged": "^9.1.0",
+    "lint-staged": "^10.0.0",
     "lodash": "^4.17.15",
     "prettier": "^1.16.4",
     "ts-jest": "^24.1.0",
