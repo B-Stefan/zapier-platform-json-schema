@@ -6,6 +6,7 @@
     "object-literal-sort-keys": [false, "match-declaration-order"]
   },
   "rules": {
+    "array-type": [true, "array-simple"],
     "no-floating-promises": true,
     "quotemark": false,
     "no-unused-expression": false,
