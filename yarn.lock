@@ -4166,9 +4166,9 @@ yn@3.1.1:
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
 zapier-platform-schema@^10.0.0:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-10.0.1.tgz#c11ce094805b58340a4653fa73b46757be881f9d"
-  integrity sha512-kmxpU4gxOjKkTMIW0VfDjq3VVw1pwVWr8wy/IDTqhyvCWq6Hi2q/MeNHTulVD9lR+AX1gXhu3C3hhQ5stH3GZg==
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-10.1.0.tgz#0c444719f40c97edc2af94c6e556a025d6b6b76b"
+  integrity sha512-RSETo+m2qdLd1lPXcUdmgpurlWCe0ZgxUHc2pVNWTSTNye3d7xfL+tXrETYrYwXD2pHAVkY8P3zcp9zub4G1gw==
   dependencies:
     jsonschema "1.2.2"
     lodash "4.17.19"
