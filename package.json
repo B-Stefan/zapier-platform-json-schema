@@ -28,7 +28,7 @@
     "tslint": "^6.1.0",
     "typescript": "^3.3",
     "typescript-json-schema": "^0.50.0",
-    "zapier-platform-schema": "^10.0.0"
+    "zapier-platform-schema": "^11.0.0"
   },
   "husky": {
     "hooks": {
