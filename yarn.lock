@@ -2703,12 +2703,7 @@ lodash.sortby@^4.7.0:
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
   integrity sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
 
-lodash@4.17.19:
-  version "4.17.19"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
-  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
-
-lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.20:
+lodash@4.17.21, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.20:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -4242,10 +4237,10 @@ yn@3.1.1:
   resolved "https://registry.yarnpkg.com/yn/-/yn-3.1.1.tgz#1e87401a09d767c1d5eab26a6e4c185182d2eb50"
   integrity sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 
-zapier-platform-schema@^10.0.0:
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-10.2.0.tgz#2a7c668b538a66296ad9540476731489d70fd79b"
-  integrity sha512-UvLJVfKDy/fquiseNM/1pnqJq2WdwJH6MXk5qOf6vUmF08XOkwzAwcv4/XSZ0t3c8sLKyxskDt3mRYz5q5FsCg==
+zapier-platform-schema@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/zapier-platform-schema/-/zapier-platform-schema-11.0.0.tgz#7b398e08570abb7e9af25cfaebfa0c689644c5e5"
+  integrity sha512-GT+DWAVxbyXhE+Sdb5t+J70fOYv820fnyQvNZXBkzCOKvLJWzJZFIUD2/hnIU5BTyKAlzYSFu4bWoMP6bIsXyg==
   dependencies:
     jsonschema "1.2.2"
-    lodash "4.17.19"
+    lodash "4.17.21"
