@@ -13,7 +13,6 @@
     "test": "jest",
     "lint": "tslint --project ."
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "@types/lodash": "^4.14.161",
