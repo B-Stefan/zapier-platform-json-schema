@@ -63,6 +63,9 @@ export default class ZapierSchemaGenerator {
     key: string,
     parentKey?: string
   ): Partial<FieldSchema> | null {
+    if(!prop) {
+      return null;
+    }
     const fieldSchema = {} as Partial<FieldSchema>;
     if (prop.enum) {
       fieldSchema.choices = prop.enum;

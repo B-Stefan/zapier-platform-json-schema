@@ -4,10 +4,28 @@ import Registry from "../src/Registry";
 import * as _ from "lodash";
 
 // tslint:disable-next-line
-const schema = require("./Example.schema.json") as JSONSchema;
+let schema: JSONSchema;
 
 describe("ZapierSchemaGenerator", () => {
+  beforeEach(()=> {
+    schema = _.cloneDeep(require("./Example.schema.json")) as JSONSchema;
+  });
   const generator = new ZapierSchemaGenerator();
+  describe("empty property inputs", ()=> {
+    it("supports undefined property", ()=> {
+      const key = "stringProp";
+      delete schema.properties;
+      const type = generator.getFieldSchema(undefined, key);
+      expect(type).toBeNull();
+    });
+    it("supports json with key null properties", ()=> {
+      const key = "stringProp";
+      // @ts-ignore
+      schema.properties = null ;
+      const type = generator.getFieldSchema(null, key);
+      expect(type).toBeNull();
+    });
+  });
 
   describe("PrimitiveTypes", () => {
     it("supports string type", async () => {
@@ -136,7 +154,7 @@ describe("ZapierSchemaGenerator", () => {
   });
 
   describe("$ref", () => {
-    const registry = Registry.fromDefinition(schema);
+    const registry = Registry.fromDefinition(_.cloneDeep(require("./Example.schema.json")) as JSONSchema);
     it("supports $ref enum types", async () => {
       const key = "enumRef";
       const clone = _.cloneDeep(schema);
