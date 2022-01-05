@@ -6,7 +6,7 @@ export function transformObject(
   prop: any,
   generator: ZapierSchemaGenerator
 ): Partial<FieldSchema> | null {
-  const children = (Object.entries(prop.properties).map(([key, value]) =>
+  const children = (Object.entries(prop.properties || {}).map(([key, value]) =>
     generator.getFieldSchema(value, key, fieldSchema.key)
   ) as unknown) as FieldSchema[];
   return {
