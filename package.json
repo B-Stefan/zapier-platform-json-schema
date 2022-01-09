@@ -1,6 +1,6 @@
 {
   "name": "zapier-platform-json-schema",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "Lib to convert JSON-Schema to zapier schema",
   "main": "build/Index.js",
   "repository": "B-Stefan/zapier-platform-json-schema",
