@@ -43,6 +43,10 @@
     "nestedRef": {
       "$ref": "#/definitions/NestedRef"
     },
+    "arryOfNestedRefs": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/NestedRef" }
+    },
     "multipleTypeProp": {
       "type": ["string", "boolean"]
     },
