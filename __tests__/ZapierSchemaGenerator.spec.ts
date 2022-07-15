@@ -207,7 +207,7 @@ describe("ZapierSchemaGenerator", () => {
       const types = generator.getZapierSchema(schema, {
         excludes: ["nestedRef"]
       });
-      expect(types.length).toEqual(11);
+      expect(types.length).toEqual(13);
     });
 
     it("prefers nested include over general exclude", async () => {
@@ -215,7 +215,7 @@ describe("ZapierSchemaGenerator", () => {
         excludes: ["nestedRef"],
         includes: ["nestedRef.stringProp"]
       });
-      expect(types.length).toEqual(12);
+      expect(types.length).toEqual(14);
     });
 
     it("exclude all other but respected includes", async () => {
@@ -253,7 +253,7 @@ describe("ZapierSchemaGenerator", () => {
 
   it("flatten all nested types", async () => {
     const types = generator.getZapierSchema(schema);
-    expect(types.length).toEqual(13);
+    expect(types.length).toEqual(15);
   });
 
   it("uses Zapier unsercore keys", async () => {
@@ -263,6 +263,19 @@ describe("ZapierSchemaGenerator", () => {
       .map((prop: any) => prop.key)
       .filter(propKey => propKey.startsWith(key))
       .filter((keyInList: string) => !keyInList.includes(key + "__"));
+
     expect(startWithDoubleUnderscore.length).toEqual(0);
+  });
+  it(" supports array with nestedref items", async () => {
+    const key = "arryOfNestedRefs";
+    const schemas = generator.getZapierSchema(schema);
+
+    const filteredItems = schemas.filter(f => f.key.startsWith(key));
+    expect(
+      filteredItems
+    ).toMatchObject([
+      { key: 'arryOfNestedRefs__stringProp', type: 'string' },
+      { key: 'arryOfNestedRefs__otherStringProp', type: 'string' }
+    ]);
   });
 });

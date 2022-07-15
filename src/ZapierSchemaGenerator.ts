@@ -127,6 +127,12 @@ export default class ZapierSchemaGenerator {
         this.dehydrateRefs(registry, entry)
       );
     }
+    if(current.items) {
+      const items = Array.isArray(current.items) ? current.items : [current.items]
+      items.forEach((entry: any) =>
+        this.dehydrateRefs(registry, entry)
+      );
+    }
     if (!current.$ref) {
       return;
     }
