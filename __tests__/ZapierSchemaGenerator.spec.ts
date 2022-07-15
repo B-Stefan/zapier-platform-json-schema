@@ -153,6 +153,31 @@ describe("ZapierSchemaGenerator", () => {
     });
   });
 
+  describe("Required", () => {
+    it("supports required on object", async () => {
+      const key = "stringProp";
+      const type = generator.getZapierSchema(schema)
+
+      const stringProp = type.filter(c => c!== null).filter(c => c.key === key);
+
+      expect(stringProp).not.toBeUndefined;
+      expect(stringProp).toHaveLength(1);
+      expect(stringProp![0].required).toEqual(true);
+    });
+
+    it("supports required on nestedRef", async () => {
+      const key = "otherStringProp";
+      const type = generator.getZapierSchema(schema)
+
+      const otherStringProp = type.filter(c => c !== null).filter(c => c.key.endsWith(key))
+
+      expect(otherStringProp).not.toBeUndefined;
+      expect(otherStringProp).toHaveLength(1);
+      expect(otherStringProp![0].required).toEqual(true);
+
+    });
+  });
+
   describe("$ref", () => {
     const registry = Registry.fromDefinition(_.cloneDeep(require("./Example.schema.json")) as JSONSchema);
     it("supports $ref enum types", async () => {
