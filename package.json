@@ -17,7 +17,7 @@
     "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.161",
     "@types/node": "^17.0.8",
-    "husky": "6.0.0",
+    "husky": "8.0.2",
     "jest": "^25.1.0",
     "lint-staged": "^11.0.0",
     "lodash": "^4.17.20",
