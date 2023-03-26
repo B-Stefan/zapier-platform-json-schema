@@ -6,11 +6,11 @@ name: Node.js Package
 on: push
 
 jobs:
-  strategy:
-    matrix:
-      node-version: [ 10.x, 12.x, 14.x ]
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 10.x, 12.x, 14.x ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -21,6 +21,9 @@ jobs:
       - run: yarn lint
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 10.x, 12.x, 14.x ]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
